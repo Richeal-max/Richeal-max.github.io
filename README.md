@@ -11,14 +11,6 @@ pinned: true
 
 This is a WebGL implementation of a real-time renderer for [3D Gaussian Splatting for Real-Time Radiance Field Rendering](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/), a recently developed technique for taking a set of pictures and generating a photorealistic navigable 3D scene out of it. As it is essentially an extension of rendering point clouds, rendering scenes generated with this technique can be done very efficiently on ordinary graphics hardware- unlike prior comparable techniques such as NeRFs.
 
-You can [try it out here](https://antimatter15.com/splat/).
-
-
-
-https://github.com/antimatter15/splat/assets/30054/878d5d34-e0a7-4336-85df-111ff22daf4b
-
-
-
 ## controls
 
 movement (arrow keys)
@@ -105,8 +97,3 @@ another approach to rendering translucent objects is called depth peeling, where
 another interesting approach is something called [weighted blended order independent transparency](https://learnopengl.com/Guest-Articles/2020/OIT/Weighted-Blended) which adds an additional number saved to a different render buffer which is used as a weight for an approximation of translucency which is commutative. it didn't work in my experiments, which is somewhat expected in situations where you have certain splats with high opacity on top of each other. 
 
 the final approach that i settled on is to run the sorting process on the CPU in a webworker, which happens a bit more slowly (at roughly 4fps whereas the main render is at 60fps), but that's fine because most of the time when you are moving around the z order doesn't actually change very fast (this results in momentary artifacts when jumping directly between different camera orientations on opposite sides). 
-
-
-## acknowledgements
-
-Thanks to Otavio Good for discussions on different approaches for [order independent transparency](https://en.wikipedia.org/wiki/Order-independent_transparency), Mikola Lysenko for [regl](http://regl.party/) and also for helpful advice about webgl and webgpu, Ethan Weber for discussions about how NeRFs work and letting me know that sorting is hard, Gray Crawford for identifying issues with color rendering and camera controls, Anna Brewer for help with implementing animations, and GPT-4 for writing all the WebGL boilerplate. 
